@@ -1,11 +1,11 @@
-export interface  IUserData {
+export interface IUserData {
   tarefa: string;
   feito: boolean;
-};
+}
 
-export interface  IAction {
+export interface IAction {
   text: string;
   data: {
-    action: string,
+    action: string;
   };
-};
+}

@@ -10,22 +10,22 @@ import { IAction, IUserData } from '../interfaces/user-data.interface';
 })
 export class HomePage implements OnInit {
   items = [
-           {
-            id: 1,
-            tarefa: 'Lavar os legumes',
-            feito: false
-           },
-           {
-            id: 2,
-            tarefa: 'Limpar a caixa',
-            feito: false
-           },
-           {
-            id: 3,
-            tarefa: 'Estudar',
-            feito: false
-           },
-          ];
+    {
+      id: 1,
+      tarefa: 'Lavar os legumes',
+      feito: false,
+    },
+    {
+      id: 2,
+      tarefa: 'Limpar a caixa',
+      feito: false,
+    },
+    {
+      id: 3,
+      tarefa: 'Estudar',
+      feito: false,
+    },
+  ];
 
   ngOnInit() {
     this.loadItems();
@@ -68,13 +68,13 @@ export class HomePage implements OnInit {
   logResult(ev: any, id: any) {
     switch (ev.detail.data.action) {
       case 'feito':
-        this.items[id-1].feito = true;
+        this.items[id - 1].feito = true;
         break;
-        
+
       case 'nfeito':
-        this.items[id-1].feito = false;
+        this.items[id - 1].feito = false;
         break;
-        
+
       default:
         break;
     }

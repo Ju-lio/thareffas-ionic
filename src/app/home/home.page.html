@@ -1,35 +1,30 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Header</ion-title>
+    <ion-title>Thareffas APP</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <h1>Content</h1>
-
+  <h1>Tarefas</h1>
   <ion-content fixed-slot-placement="before">
-
     <ion-list>
-      <ion-item id="{{'open-action-sheet'+item.id}}" [button]="true" *ngFor="let item of items; let index">
+      <ion-item
+        id="{{'open-action-sheet'+item.id}}"
+        [button]="true"
+        *ngFor="let item of items; let index">
         <ion-avatar slot="start">
           <div class="state">
-            <div [ngClass]="{'complete': item.feito, 'not-complete': !item.feito}"></div>
+            <div
+              [ngClass]="{'complete': item.feito, 'not-complete': !item.feito}"></div>
           </div>
         </ion-avatar>
         <ion-label>{{ item.tarefa }}</ion-label>
-        <ion-action-sheet trigger="{{'open-action-sheet'+item.id}}" header="Actions" [buttons]="actionSheetButtons" (didDismiss)="logResult($event, item.id)">
+        <ion-action-sheet
+          trigger="{{'open-action-sheet'+item.id}}"
+          header="Actions"
+          [buttons]="actionSheetButtons"
+          (didDismiss)="logResult($event, item.id)">
         </ion-action-sheet>
       </ion-item>
     </ion-list>
-
-    <!-- <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll> -->
   </ion-content>
-
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
 </ion-content>
