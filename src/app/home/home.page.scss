@@ -25,25 +25,3 @@
 #container a {
   text-decoration: none;
 }
-
-.state {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.complete {
-  background-color: green;
-  width: 50%;
-  height: 50%;
-  border-radius: 50%;
-}
-
-.not-complete {
-  background-color: red;
-  width: 50%;
-  height: 50%;
-  border-radius: 50%;
-}

@@ -1,4 +1,5 @@
 export interface IUserData {
+  id: number;
   tarefa: string;
   feito: boolean;
 }

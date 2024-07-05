@@ -1,40 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { IonInput, IonModal } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
+import { IUserData } from 'src/app/interfaces/user-data.interface';
 
 @Component({
   selector: 'app-tarefas',
   templateUrl: './tarefas.component.html',
   styleUrls: ['./tarefas.component.scss'],
 })
-export class TarefasComponent implements OnInit {
-  items = [
-    {
-      id: 1,
-      tarefa: 'Lavar os legumes',
-      feito: false,
-    },
-    {
-      id: 2,
-      tarefa: 'Limpar a caixa',
-      feito: false,
-    },
-    {
-      id: 3,
-      tarefa: 'Estudar',
-      feito: false,
-    },
-  ];
+export class TarefasComponent implements OnInit, AfterViewInit {
+  items = [] as IUserData[];
 
   ngOnInit() {
     this.loadItems();
   }
 
   private loadItems() {
-    // this.items = this.getItems();
-  }
-
-  private getItems() {
-    const item = localStorage.getItem('dadosDoUsuario');
-    return item ? JSON.parse(item) : null;
+    const json = localStorage.getItem('lista');
+    this.items = [];
+    if (json) {
+      const items = JSON.parse(json);
+      this.items = items;
+    }
   }
 
   public actionSheetButtons = [
@@ -75,5 +62,61 @@ export class TarefasComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  @ViewChild('edit', { static: true }) editInput!: IonInput;
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      if (this.editInput) {
+        this.editInput.setFocus(); // Use setFocus() para dar foco ao IonInput
+      }
+    }, 5000); // Atraso opcional para garantir que o elemento esteja pronto
+  }
+
+  @ViewChild(IonModal) modal?: IonModal;
+
+  name: string = '';
+  id: string = '';
+
+  cancel() {
+    this.modal?.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    this.modal?.dismiss(this.name, 'confirm');
+  }
+
+  onWillDismiss(event: Event) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      const json = localStorage.getItem('lista');
+      let items = [];
+
+      if (json) {
+        items = JSON.parse(json);
+      } else {
+        items = [];
+      }
+
+      items.push({
+        id: this.items.length + 1,
+        tarefa: this.name ? this.name : '',
+        feito: false,
+      });
+
+      this.name = '';
+
+      if (items) {
+        localStorage.setItem('lista', JSON.stringify(items));
+      }
+
+      this.loadItems();
+    }
+  }
+
+  clearItems() {
+    localStorage.setItem('lista', '');
+    this.loadItems();
   }
 }
