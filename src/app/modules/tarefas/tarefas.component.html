@@ -1,0 +1,33 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Thareffas APP</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <h1>Tarefas</h1>
+  <ion-content fixed-slot-placement="before">
+    <ion-list>
+      <ion-item
+        id="{{ 'open-action-sheet' + item.id }}"
+        [button]="true"
+        *ngFor="let item of items; let index">
+        <ion-avatar slot="start">
+          <div class="state">
+            <div
+              [ngClass]="{
+                complete: item.feito,
+                'not-complete': !item.feito,
+              }"></div>
+          </div>
+        </ion-avatar>
+        <ion-label>{{ item.tarefa }}</ion-label>
+        <ion-action-sheet
+          trigger="{{ 'open-action-sheet' + item.id }}"
+          header="Actions"
+          [buttons]="actionSheetButtons"
+          (didDismiss)="logResult($event, item.id)">
+        </ion-action-sheet>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-content>
