@@ -1,0 +1,26 @@
+<h1>Tarefas</h1>
+<ion-content fixed-slot-placement="before">
+  <ion-list>
+    <ion-item
+      id="{{ 'open-action-sheet' + item.id }}"
+      [button]="true"
+      *ngFor="let item of items; let index">
+      <ion-avatar slot="start">
+        <div class="state">
+          <div
+            [ngClass]="{
+              complete: item.done,
+              'not-complete': !item.done,
+            }"></div>
+        </div>
+      </ion-avatar>
+      <ion-label>{{ item.task }}</ion-label>
+      <ion-action-sheet
+        trigger="{{ 'open-action-sheet' + item.id }}"
+        header="Ações"
+        [buttons]="actionSheetButtons"
+        (didDismiss)="logResult($event, item.id)">
+      </ion-action-sheet>
+    </ion-item>
+  </ion-list>
+</ion-content>

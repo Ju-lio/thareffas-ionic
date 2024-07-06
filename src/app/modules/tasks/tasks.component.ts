@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { IonInput, IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
-import { IUserData } from 'src/app/interfaces/user-data.interface';
+import { ITasksList } from 'src/app/interfaces/tasks-list.interface';
 
 @Component({
   selector: 'app-tarefas',
-  templateUrl: './tarefas.component.html',
-  styleUrls: ['./tarefas.component.scss'],
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.scss'],
 })
-export class TarefasComponent implements OnInit, AfterViewInit {
-  items = [] as IUserData[];
+export class TasksComponent implements OnInit, AfterViewInit {
+  items = [] as ITasksList[];
 
   ngOnInit() {
     this.loadItems();
@@ -52,11 +52,11 @@ export class TarefasComponent implements OnInit, AfterViewInit {
   logResult(ev: any, id: any) {
     switch (ev.detail.data.action) {
       case 'feito':
-        this.items[id - 1].feito = true;
+        this.items[id - 1].done = true;
         break;
 
       case 'nfeito':
-        this.items[id - 1].feito = false;
+        this.items[id - 1].done = false;
         break;
 
       default:
